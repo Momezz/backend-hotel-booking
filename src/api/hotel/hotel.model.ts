@@ -1,4 +1,20 @@
-import { Schema, model } from "mongoose";
+import { Schema, model, Document } from "mongoose";
+
+export interface HotelDocument extends Document{
+  name: String,
+  images: Array<String>,
+  location: Object,
+  contact: Object,
+  about: String,
+  pricePerNight: Number,
+  features: Array<String>,
+  checkin: String,
+  checkout: String,
+  offers: Array<Object>,
+  rooms: Array<Object>,
+  createdAt: Date;
+  updatedAt: Date;
+}
 
 const hotelLocationSchema = new Schema({
   country: {
@@ -67,7 +83,7 @@ const roomAmenitiesSchema = new Schema({
 
 const roomSchema = new Schema({
   _roomId: {
-    type: String,
+    type: Schema.Types.ObjectId,
     require: true,
   },
   guestNumber: {
@@ -144,11 +160,11 @@ const hotelSchema = new Schema({
       type: offerSchema,
     },
   ],
-  rooms: {
+  rooms: [{
     type: roomSchema,
     require: true,
-  },
-});
+  }]
+}, {timestamps: true,});
 
 const Hotel = model("Hotel", hotelSchema);
 

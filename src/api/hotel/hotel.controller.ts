@@ -1,7 +1,7 @@
 import { Request, Response, NextFunction } from "express";
-import { getAllHotels, getHotelById } from "./hotel.services";
+import { getAllHotels, getHotelById, createHotel } from "./hotel.services";
 
-export async function handleAllGetHotels(
+export async function handleGetAllHotels(
   req: Request,
   res: Response,
   next: NextFunction
@@ -29,4 +29,20 @@ export async function handleGetHotelById(
   }
 
   return res.status(200).json(hotel);
+}
+
+export async function handleCreateHotel(
+  req: Request,
+  res: Response,
+  next: NextFunction
+) {
+  const data = req.body;
+  console.log (data);
+
+  try {
+    const newHotel = await createHotel(data);
+    return res.status(201).json(newHotel);
+  } catch (error) {
+    return res.status(500).json(error);
+  }
 }
