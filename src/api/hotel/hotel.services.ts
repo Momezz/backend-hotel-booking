@@ -19,3 +19,7 @@ export function updateHotel (id: string,
 ) {
   return Hotel.findByIdAndUpdate(id, hotel, { new: true });
 }
+
+export function deleteHotel(id: string) {
+  return Hotel.findByIdAndRemove(id);
+}

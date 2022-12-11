@@ -3,7 +3,8 @@ import {
   handleGetAllHotels,
   handleGetHotelById,
   handleCreateHotel,
-  handleUpdateHotel
+  handleUpdateHotel,
+  handleDeleteHotel
 } from "./hotel.controller";
 
 const router = Router();
@@ -16,4 +17,7 @@ router.get("/:id", handleGetHotelById);
 router.post("/", handleCreateHotel);
 // PATCH /api/hotels/:id
 router.patch('/:id', handleUpdateHotel);
+// DELETE /api/products/:id
+router.delete('/:id', handleDeleteHotel);
+
 export default router;
