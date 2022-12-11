@@ -3,6 +3,7 @@ import {
   handleGetAllHotels,
   handleGetHotelById,
   handleCreateHotel,
+  handleUpdateHotel
 } from "./hotel.controller";
 
 const router = Router();
@@ -13,5 +14,6 @@ router.get("/", handleGetAllHotels);
 router.get("/:id", handleGetHotelById);
 // POST /api/hotels
 router.post("/", handleCreateHotel);
-
+// PATCH /api/hotels/:id
+router.patch('/:id', handleUpdateHotel);
 export default router;

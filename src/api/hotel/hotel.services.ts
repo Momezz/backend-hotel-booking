@@ -13,3 +13,9 @@ export function createHotel (input: DocumentDefinition<Omit<HotelDocument, 'crea
   return Hotel.create(input)
 
 }
+
+export function updateHotel (id: string,
+  hotel: DocumentDefinition<Omit<HotelDocument, 'createdAt' | 'updatedAt'>>,
+) {
+  return Hotel.findByIdAndUpdate(id, hotel, { new: true });
+}
