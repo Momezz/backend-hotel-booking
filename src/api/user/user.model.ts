@@ -12,9 +12,20 @@ export interface UserDocument extends Document {
   address?: string;
   city?: string;
   zipCode?: number;
+  payingMethods?: Object;
   createdAt: Date;
   updatedAt: Date;
 }
+
+const payingMethodsSchema = new Schema({
+  accounNumber: {
+    type: Number,
+    unique: true,
+  },
+  cardFranchise: {
+    type: String,
+  }
+})
 
 const UserSchema = new Schema ({
   role: {
@@ -57,6 +68,9 @@ const UserSchema = new Schema ({
   zipCode: {
     type: Number,
   },
+  payingMethods: {
+    type: payingMethodsSchema,
+  }
 }, {
   timestamps: true,
 })
