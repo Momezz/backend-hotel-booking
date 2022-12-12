@@ -46,7 +46,7 @@ export async function handleUpdateBooking(req: Request, res: Response,  next: Ne
   const data = req.body;
   const product = await updateBooking(id, data);
   if (!product) {
-    return res.status(404).json({ message: 'Product not found' });
+    return res.status(404).json({ message: 'Booking not found' });
   }
   return res.status(200).json(product);
 }
@@ -55,7 +55,7 @@ export async function handleDeleteBooking(req: Request, res: Response, next: Nex
   const { id } = req.params;
   try {
     await deleteBooking(id);
-    return res.status(200).json({ message: "User deleted" });
+    return res.status(200).json({ message: "Booking deleted" });
   } catch (error) {
     console.log(error);
     return res.status(500).json(error);

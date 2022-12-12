@@ -12,7 +12,7 @@ export interface BookingDocument extends Document {
 const BookingSchema = new Schema({
   idHotel: {
     type: Schema.Types.ObjectId,
-    ref: 'book',
+    ref: 'Hotel',
   },
   idUser: {
     type: Schema.Types.ObjectId,
