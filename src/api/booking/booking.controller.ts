@@ -37,7 +37,7 @@ export async function handleCreateBooking(req: Request, res: Response, next: Nex
     const booking = await createBooking(data);
     return res.status(201).json(booking);
   } catch (error) {
-    return res.status(500).json(error.message);
+    return res.status(500).json(error);
   }
 }
 

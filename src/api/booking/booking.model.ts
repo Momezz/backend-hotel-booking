@@ -1,53 +1,45 @@
 import { Schema, model, Document } from 'mongoose';
 
 export interface BookingDocument extends Document {
-  name: String,
-  lastName: String,
-  email: String,
-  contact: String,
-  specialRequest: String,
-  promoCode: String
+  checkInDate: Date,
+  checkOutDate: Date,
+  guestsNumber: Number,
+  paymentDetail: Object,
 }
+
+const paymentDetail = new Schema({
+  price: {
+    type: Number,
+  },
+  paymentMethod: {
+    type: Object,
+  }
+})
 
 const BookingSchema = new Schema({
   idHotel: {
     type: Schema.Types.ObjectId,
-    ref: 'Hotel',
+    ref: 'hotels',
   },
   idUser: {
     type: Schema.Types.ObjectId,
-    ref: 'User',
+    ref: 'users',
   },
-  name: {
-    type: String,
+  checkInDate: {
+    type: Date,
     required: true,
   },
-  lastName: {
-    type: String,
+  checkOutDate: {
+    type: Date,
     required: true,
-    unique: true,
   },
-  email: {
-    type: String,
+  guestsNumber: {
+    type: Number,
     required: true,
-    unique: true,
-    trim: true,
-    lowercase: true,
   },
-  contact: {
-    type: String,
+  paymentDetail: {
+    type: paymentDetail,
     required: true,
-    unique: true,
-  },
-  specialRequest: {
-    type: String,
-    default: "no special requirements"
-  },
-  promoCode: {
-    type: String,
-    default: "Does not apply",
-    unique: true,
-    required: false,
   },
 },{
   timestamps: true,
