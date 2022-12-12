@@ -1,6 +1,15 @@
 import exp from 'constants';
 import {Request, Response} from 'express';
-import {getUserById, createUser, updateUser, deleteUser} from './user.services';
+import {getUsers, getUserById, createUser, updateUser, deleteUser} from './user.services';
+
+export async function handleGetUsers(req: Request, res: Response) {
+  try {
+    const users = await getUsers();
+    return res.status(200).json(users);
+  } catch (error) {
+    return res.status(500).json(error);
+  }
+}
 
 export async function handleGetUser(req: Request, res: Response) {
   const {id} = req.params;
