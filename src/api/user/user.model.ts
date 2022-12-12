@@ -12,7 +12,7 @@ export interface UserDocument extends Document {
   address?: string;
   city?: string;
   zipCode?: number;
-  payingMethods?: Object;
+  payingMethods?: [Object];
   createdAt: Date;
   updatedAt: Date;
 }
@@ -68,9 +68,11 @@ const UserSchema = new Schema ({
   zipCode: {
     type: Number,
   },
-  payingMethods: {
-    type: payingMethodsSchema,
-  }
+  payingMethods: [
+    {
+      type: payingMethodsSchema,
+    }
+  ],
 }, {
   timestamps: true,
 })
