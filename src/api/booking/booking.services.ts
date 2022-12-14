@@ -6,7 +6,7 @@ export function getAllBookings() {
 }
 
 export function getBookingById(id: string) {
-  const booking = Booking.findById(id).populate("idUser");
+  const booking = Booking.findById(id).populate("idHotel").populate("idUser");
   return booking;
 }
 

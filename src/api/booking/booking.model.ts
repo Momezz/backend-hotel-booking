@@ -19,7 +19,7 @@ const paymentDetail = new Schema({
 const BookingSchema = new Schema({
   idHotel: {
     type: Schema.Types.ObjectId,
-    ref: 'hotels',
+    ref: 'Hotel',
   },
   idUser: {
     type: Schema.Types.ObjectId,
