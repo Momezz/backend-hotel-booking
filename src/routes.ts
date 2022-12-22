@@ -12,7 +12,7 @@ function routes(app: Application):void{
   app.use('/api/bookings', booking);
   app.use('/api/hotels', hotel);
   app.use('/api/posts', post);
-  app.use('/api/user', user);
+  app.use('/api/users', user);
 }
 
 export default routes;

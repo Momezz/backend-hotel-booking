@@ -1,5 +1,5 @@
-import exp from 'constants';
 import {Request, Response} from 'express';
+import { sendMailSendGrid } from '../../utils/emails';
 import {getUsers, getUserById, createUser, updateUser, deleteUser} from './user.services';
 
 export async function handleGetUsers(req: Request, res: Response) {
@@ -28,6 +28,19 @@ export async function handleCreateUser(req: Request, res: Response) {
   const data = req.body;
   try {
     const user = await createUser(data);
+
+    const message = {
+      to: user.email,
+      from: `No Reply <orjuela9@gmail.com>`,
+      subject: 'Welcome to your hotel booking application',
+      templateId: 'd-0f65e09fc1fe45e6a891fda451b57e77',
+      dynamic_template_data:{
+        firstName:user.name,
+        url: `http://localhost:8080/activate/165594894161651`
+      }
+    }
+    await sendMailSendGrid(message);
+
     return res.status(200).json(user);
   } catch (error) {
     return res.status(500).json(error);
