@@ -5,6 +5,7 @@ import post from "./api/post";
 import user from './api/user';
 import payment from './api/payment';
 import healthcheck from './api/healthcheck';
+import authLocal from './auth/local';
 
 function routes(app: Application):void{
   app.use('/api/healthcheck', healthcheck);
@@ -13,6 +14,9 @@ function routes(app: Application):void{
   app.use('/api/hotels', hotel);
   app.use('/api/posts', post);
   app.use('/api/users', user);
+
+  //auth routes
+  app.use('/auth/local', authLocal);
 }
 
 export default routes;

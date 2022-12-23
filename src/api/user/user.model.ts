@@ -1,4 +1,5 @@
 import { Schema, model, Document } from "mongoose";
+import { userProfileType } from "./user.types";
 import bcrypt from "bcryptjs";
 
 export interface UserDocument extends Document {
@@ -16,7 +17,8 @@ export interface UserDocument extends Document {
   createdAt: Date;
   updatedAt: Date;
 
-  comparePassword: (password:string) => Promise<boolean>;
+  profile: userProfileType;
+  comparePassword: (password: string) => Promise<boolean>;
 }
 
 const payingMethodsSchema = new Schema({
@@ -97,6 +99,16 @@ UserSchema.pre("save", async function save(next: Function) {
   }
 });
 
+// Virtuals
+UserSchema.virtual('profile').get(function profile() {
+  const {name, role, email, profilePic, birthday, gender, address, city, zipCode, payingMethods } = this;
+
+  return {
+    name, role, email, profilePic, birthday, gender, address, city, zipCode, payingMethods
+  };
+
+});
+
 //Methods
 async function comparePassword(
   this: UserDocument,
@@ -113,7 +125,7 @@ async function comparePassword(
     next(error);
     return false;
   }
-};
+}
 
 UserSchema.methods.comparePassword = comparePassword;
 

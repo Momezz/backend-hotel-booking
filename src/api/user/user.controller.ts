@@ -1,11 +1,11 @@
 import { Request, Response } from "express";
+import { verifyToken } from "../../auth/auth.services";
 import {
   getUsers,
   getUserById,
   createUser,
   updateUser,
   deleteUser,
-  getUserFilter,
 } from "./user.services";
 
 export async function handleGetUsers(req: Request, res: Response) {
@@ -54,27 +54,29 @@ export async function handleUpdateUser(req: Request, res: Response) {
   const { id } = req.params;
   const data = req.body;
 
+  const userToken = req.headers?.authorization?.split(' ')[1];
+
+  
+
   try {
     const user = await updateUser(id, data);
+
+    if (!userToken){
+      return res.status(401).json({ message: "invalid user token" });
+    }
+    // console.log(userToken)
+    const decoded = verifyToken(userToken);
+    // console.log(decoded);
+
+    if (!decoded){
+      return res.status(401).json({ message: "token undecoded" });
+    }
+
     if (!user) {
       return res.status(404).json({ message: "User not found to update" });
     }
-    return res.status(200).json(user);
-  } catch (error) {
-    return res.status(500).json(error);
-  }
-}
 
-export async function handleLoginUser(req: Request, res: Response) {
-  const { email, password } = req.body;
-  
-  try {
-    const user = await getUserFilter({email});
-    if (!user) {
-      return res.status(404).json({ message: "User not found" });
-    }
-    const validPassword = await user.comparePassword(password);
-    return res.status(200).json({ message: "User logged in", validPassword });
+    return res.status(200).json(user);
   } catch (error) {
     return res.status(500).json(error);
   }
