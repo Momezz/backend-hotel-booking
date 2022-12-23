@@ -52,25 +52,10 @@ export async function handleDeleteUser(req: Request, res: Response) {
 
 export async function handleUpdateUser(req: Request, res: Response) {
   const { id } = req.params;
-  const data = req.body;
-
-  const userToken = req.headers?.authorization?.split(' ')[1];
-
-  
+  const data = req.body;  
 
   try {
     const user = await updateUser(id, data);
-
-    if (!userToken){
-      return res.status(401).json({ message: "invalid user token" });
-    }
-    // console.log(userToken)
-    const decoded = verifyToken(userToken);
-    // console.log(decoded);
-
-    if (!decoded){
-      return res.status(401).json({ message: "token undecoded" });
-    }
 
     if (!user) {
       return res.status(404).json({ message: "User not found to update" });
