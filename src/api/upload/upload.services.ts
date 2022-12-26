@@ -1,3 +1,6 @@
+import dotenv from 'dotenv';
+dotenv.config();
+
 const cloudinary = require('cloudinary').v2;
 
 async function uploadImage(image: string) {
@@ -7,6 +10,7 @@ async function uploadImage(image: string) {
       use_filename: true,
       unique_filename: false,
     })
+    console.log(result)
     return result;
   } catch (error) {
     console.log(error);
