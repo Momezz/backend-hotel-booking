@@ -1,9 +1,5 @@
-<<<<<<< HEAD
 import {Request, Response} from 'express';
 import { sendMailSendGrid } from '../../utils/emails';
-import {getUsers, getUserById, createUser, updateUser, deleteUser} from './user.services';
-=======
-import { Request, Response } from "express";
 import { verifyToken } from "../../auth/auth.services";
 import {
   getUsers,
@@ -12,7 +8,6 @@ import {
   updateUser,
   deleteUser,
 } from "./user.services";
->>>>>>> c2ecee48e757f928ed08e941f0706820c470d7a0
 
 export async function handleGetUsers(req: Request, res: Response) {
   try {
