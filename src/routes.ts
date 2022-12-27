@@ -6,6 +6,7 @@ import user from './api/user';
 import payment from './api/payment';
 import healthcheck from './api/healthcheck';
 import upload from './api/upload';
+import authLocal from './auth/local';
 
 function routes(app: Application):void{
   app.use('/api/healthcheck', healthcheck);
@@ -13,8 +14,11 @@ function routes(app: Application):void{
   app.use('/api/bookings', booking);
   app.use('/api/hotels', hotel);
   app.use('/api/posts', post);
-  app.use('/api/user', user);
+  app.use('/api/users', user);
   app.use('/api/upload', upload);
+
+  //auth routes
+  app.use('/auth/local', authLocal);
 }
 
 export default routes;
