@@ -1,19 +1,21 @@
 import { Schema, model, Document } from "mongoose";
 
 export interface HotelDocument extends Document{
-  name: String,
-  images: Array<String>,
-  location: Object,
-  contact: Object,
-  about: String,
-  pricePerNight: Number,
-  features: Array<String>,
-  checkin: String,
-  checkout: String,
-  offers: Array<Object>,
-  rooms: Array<Object>,
-  createdAt: Date;
-  updatedAt: Date;
+  name?: String,
+  imageProfile?: String,
+  images?: Array<String>,
+  location?: Object,
+  contact?: Object,
+  about?: String,
+  pricePerNight?: Number,
+  feature1?: String,
+  feature2?: String,
+  checkin?: String,
+  checkout?: String,
+  offers?: Array<Object>,
+  rooms?: Array<Object>,
+  createdAt?: Date;
+  updatedAt?: Date;
 }
 
 const geoLocationSchema = new Schema({
@@ -60,11 +62,9 @@ const hotelContactSchema = new Schema({
 const offerSchema = new Schema({
   active: {
     type: Boolean,
-    require: true,
   },
   offerPrice: {
     type: Number,
-    require: true,
   },
 });
 
@@ -131,13 +131,14 @@ const hotelSchema = new Schema({
     type: String,
     require: true,
   },
+  imageProfile: {
+    type: String,
+  },
   images: {
     type: Array,
-    require: true,
   },
   location: {
     type: hotelLocationSchema,
-    require: true,
   },
   contact: {
     type: hotelContactSchema,
@@ -150,16 +151,17 @@ const hotelSchema = new Schema({
     type: Number,
     require: true,
   },
-  features: {
-    type: Array,
+  feature1: {
+    type: String,
+  },
+  feature2: {
+    type: String,
   },
   checkin: {
     type: String,
-    require: true,
   },
   checkout: {
     type: String,
-    require: true,
   },
   offers: [
     {
@@ -168,7 +170,6 @@ const hotelSchema = new Schema({
   ],
   rooms: [{
     type: roomSchema,
-    require: true,
   }]
 }, {timestamps: true,});
 
