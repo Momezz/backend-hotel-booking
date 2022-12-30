@@ -3,6 +3,7 @@ export type userProfileType = {
   role: string;
   email: string;
   profilePic: string;
+  phone: number;
   birthday: Date;
   gender: string;
   address: string;
