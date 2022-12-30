@@ -2,6 +2,7 @@ export type userProfileType = {
   name: string;
   role: string;
   email: string;
+  password: string;
   profilePic: string;
   phone: number;
   birthday: Date;

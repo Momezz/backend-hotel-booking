@@ -104,10 +104,10 @@ UserSchema.pre("save", async function save(next: Function) {
 
 // Virtuals
 UserSchema.virtual('profile').get(function profile() {
-  const {name, role, email, profilePic, phone, birthday, gender, address, city, zipCode, payingMethods } = this;
+  const {name, role, email, password, profilePic, phone, birthday, gender, address, city, zipCode, payingMethods } = this;
 
   return {
-    name, role, email, profilePic, phone, birthday, gender, address, city, zipCode, payingMethods
+    name, role, email, password, profilePic, phone, birthday, gender, address, city, zipCode, payingMethods
   };
 
 });
