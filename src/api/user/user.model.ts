@@ -20,6 +20,10 @@ export interface UserDocument extends Document {
 
   profile: userProfileType;
   comparePassword: (password: string) => Promise<boolean>;
+
+  emailConfirmToken?: String,
+  emailConfirmExpires?: Date,
+  isActive?:Boolean,
 }
 
 const payingMethodsSchema = new Schema({
@@ -49,6 +53,9 @@ const UserSchema = new Schema(
       unique: true,
       lowercase: true,
     },
+    emailConfirmToken: String,
+    emailConfirmExpires : Date,
+    isActive:Boolean,
     password: {
       type: String,
       required: true,
