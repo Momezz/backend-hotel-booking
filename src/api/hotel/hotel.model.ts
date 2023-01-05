@@ -1,17 +1,24 @@
 import { Schema, model, Document } from "mongoose";
 
+
 export interface HotelDocument extends Document{
-  name?: String,
+  name: String,
   imageProfile?: String,
   images?: Array<String>,
-  location?: Object,
-  contact?: Object,
-  about?: String,
-  pricePerNight?: Number,
+  country: String,
+  city: String,
+  address: String,
+  geoLocation?: Array<String>,
+  phone?: Number,
+  email?: String,
+  socialMedia?: Array<String>,
+  about: String,
+  pricePerNight: Number,
   feature1?: String,
   feature2?: String,
   checkin?: String,
   checkout?: String,
+  facilities?: Array<String>,
   offers?: Array<Object>,
   rooms?: Array<Object>,
   createdAt?: Date;
@@ -27,37 +34,6 @@ const geoLocationSchema = new Schema({
     type: Array,
   }
 })
-
-const hotelLocationSchema = new Schema({
-  country: {
-    type: String,
-    require: true,
-  },
-  city: {
-    type: String,
-    require: true,
-  },
-  address: {
-    type: String,
-    require: true,
-  },
-  geoLocation :{
-    type: geoLocationSchema
-  }
-  },
-);
-
-const hotelContactSchema = new Schema({
-  phone: {
-    type: String,
-  },
-  email: {
-    type: String,
-  },
-  socialMedia: {
-    type: Array,
-  },
-});
 
 const offerSchema = new Schema({
   active: {
@@ -88,42 +64,14 @@ const roomAmenitiesSchema = new Schema({
 });
 
 const roomSchema = new Schema({
-  _roomId: {
-    type: Schema.Types.ObjectId,
-    require: true,
-  },
-  guestNumber: {
-    type: Number,
-    require: true,
-    min: 1,
-  },
-  name: {
+  roomType: {
     type: String,
     require: true,
   },
-  about: {
-    type: String,
-  },
-  roomImages: {
-    type: Array,
-    require: true,
-  },
-  features: {
-    type: Array,
-  },
-  price: {
+  roomPrice: {
     type: Number,
     require: true,
-  },
-  amenities: {
-    type: roomAmenitiesSchema,
-    require: true,
-  },
-  offers: [
-    {
-      type: offerSchema,
-    },
-  ],
+  }
 });
 
 const hotelSchema = new Schema({
@@ -137,11 +85,29 @@ const hotelSchema = new Schema({
   images: {
     type: Array,
   },
-  location: {
-    type: hotelLocationSchema,
+  country: {
+    type: String,
+    require: true,
   },
-  contact: {
-    type: hotelContactSchema,
+  city: {
+    type: String,
+    require: true,
+  },
+  address: {
+    type: String,
+    require: true,
+  },
+  geoLocation :{
+    type: geoLocationSchema
+  },
+  phone: {
+    type: String,
+  },
+  email: {
+    type: String,
+  },
+  socialMedia: {
+    type: Array,
   },
   about: {
     type: String,
@@ -162,6 +128,9 @@ const hotelSchema = new Schema({
   },
   checkout: {
     type: String,
+  },
+  facilities: {
+    type: Array<String>,
   },
   offers: [
     {
