@@ -8,71 +8,21 @@ export interface HotelDocument extends Document{
   country: String,
   city: String,
   address: String,
-  geoLocation?: Array<String>,
-  phone?: Number,
-  email?: String,
+  geoLocation?: Array<Number>,
+  phone: Number,
+  email: String,
   socialMedia?: Array<String>,
   about: String,
   pricePerNight: Number,
-  feature1?: String,
-  feature2?: String,
-  checkin?: String,
-  checkout?: String,
-  facilities?: Array<String>,
-  offers?: Array<Object>,
+  offerPrice?: Number,
+  feature1: String,
+  feature2: String,
+  checkin: String,
+  checkout: String,
   rooms?: Array<Object>,
   createdAt?: Date;
   updatedAt?: Date;
 }
-
-const geoLocationSchema = new Schema({
-  type:{
-    type: String,
-    default: 'Point'
-  },
-  coordinates:{
-    type: Array,
-  }
-})
-
-const offerSchema = new Schema({
-  active: {
-    type: Boolean,
-  },
-  offerPrice: {
-    type: Number,
-  },
-});
-
-const roomAmenitiesSchema = new Schema({
-  bedKind: {
-    type: String,
-    require: true,
-  },
-  tv: {
-    type: String,
-  },
-  couch: {
-    type: Boolean,
-  },
-  poolView: {
-    type: Boolean,
-  },
-  shower: {
-    type: Boolean,
-  },
-});
-
-const roomSchema = new Schema({
-  roomType: {
-    type: String,
-    require: true,
-  },
-  roomPrice: {
-    type: Number,
-    require: true,
-  }
-});
 
 const hotelSchema = new Schema({
   name: {
@@ -97,8 +47,14 @@ const hotelSchema = new Schema({
     type: String,
     require: true,
   },
-  geoLocation :{
-    type: geoLocationSchema
+  geoLocation: {
+    type:{
+      type: String,
+      default: 'Point'
+    },
+    coordinates:{
+      type: [Number],
+    }
   },
   phone: {
     type: String,
@@ -117,28 +73,28 @@ const hotelSchema = new Schema({
     type: Number,
     require: true,
   },
+  offerPrice: {
+    type: Number,
+  },
   feature1: {
     type: String,
+    require: true,
   },
   feature2: {
     type: String,
+    require: true,
   },
   checkin: {
     type: String,
+    require: true,
   },
   checkout: {
     type: String,
+    require: true,
   },
-  facilities: {
-    type: Array<String>,
-  },
-  offers: [
-    {
-      type: offerSchema,
-    },
-  ],
   rooms: [{
-    type: roomSchema,
+    type: Schema.Types.ObjectId,
+    ref: 'Room',
   }]
 }, {timestamps: true,});
 
