@@ -1,8 +1,13 @@
 import Hotel, {HotelDocument} from "./hotel.model";
-import {DocumentDefinition} from 'mongoose';
+import {DocumentDefinition, FilterQuery} from 'mongoose';
 
 export function getAllHotels() {
   return Hotel.find({});
+}
+
+export function getHotelFilter(filter: FilterQuery<HotelDocument>) {
+  const hotels = Hotel.find(filter);
+  return hotels;
 }
 
 export function getHotelById(id: string) {
@@ -23,3 +28,4 @@ export function updateHotel (id: string,
 export function deleteHotel(id: string) {
   return Hotel.findByIdAndRemove(id);
 }
+

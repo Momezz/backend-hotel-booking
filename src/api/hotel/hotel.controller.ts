@@ -5,6 +5,7 @@ import {
   createHotel,
   updateHotel,
   deleteHotel,
+  getHotelFilter
 } from "./hotel.services";
 
 export async function handleGetAllHotels(
@@ -14,6 +15,25 @@ export async function handleGetAllHotels(
 ) {
   try {
     const hotels = await getAllHotels();
+    return res.status(200).json(hotels);
+  } catch (error) {
+    console.log(error);
+    return res.status(500).json(error);
+  }
+}
+
+export async function handleGetFilterHotels(
+  req: Request,
+  res: Response,
+  next: NextFunction
+) {
+  const { city } = req.body;
+  try {
+    const hotels = await getHotelFilter({city});
+    console.log("Entre al filter")
+    if(!hotels) {
+      return res.status(404).json({ message: "User not found" });
+    }
     return res.status(200).json(hotels);
   } catch (error) {
     console.log(error);
