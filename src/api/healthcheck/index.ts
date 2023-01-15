@@ -1,10 +1,9 @@
-const { Router } = require('express');
-
-const { handlerHealthcheck } = require('./healthcheck.controller')
+import { Router, Request, Response } from 'express';
 
 const router = Router();
 
-
-router.post('/', handlerHealthcheck);
+router.get('/', (req: Request, res: Response) => {
+  res.json({ message: 'Your server is running.' });
+});
 
 export default router;
