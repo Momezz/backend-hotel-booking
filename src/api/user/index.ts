@@ -1,6 +1,5 @@
 import { Router } from "express";
 import { isAuthenticated } from "../../auth/auth.services";
-
 import {
   handleGetUsers,
   handleGetUser,

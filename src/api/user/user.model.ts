@@ -24,6 +24,9 @@ export interface UserDocument extends Document {
   emailConfirmToken?: String,
   emailConfirmExpires?: Date,
   isActive?:Boolean,
+
+  passwordResetToken?: String,
+  passwordResetExpires?: Date,
 }
 
 const payingMethodsSchema = new Schema({
@@ -60,6 +63,8 @@ const UserSchema = new Schema(
       type: String,
       required: true,
     },
+    passwordResetToken: String,
+    passwordResetExpires: Date,
     profilePic: {
       type: String,
     },
