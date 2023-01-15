@@ -14,8 +14,9 @@ router.post("/login", handleLoginUser);
 //Change password
 // auth/local/change-password
 
-//Forgot password
-// auth/local/forgot-password
+//Reset password
+// auth/local/reset-password
+router.get("/password-reset")
 
 //Verify email
 // auth/local/activate/*hexToken*
