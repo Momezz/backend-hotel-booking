@@ -119,11 +119,6 @@ export async function handleVerifyPasswordReset(
       return res.status(400).json({ message: "Token expired" });
     }
 
-    // encrypt password
-    // const salt = await bcrypt.genSalt(10);
-    // console.log(password);
-    // const hash = await bcrypt.hash(password, salt);
-
     user.password = password;
     user.passwordResetToken = undefined;
     user.passwordResetExpires = undefined;
