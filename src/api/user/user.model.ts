@@ -133,6 +133,7 @@ async function comparePassword(
   const user = this;
 
   try {
+    console.log(candidatePassword, user.password);
     const match = await bcrypt.compare(candidatePassword, user.password);
 
     return match;

@@ -21,6 +21,7 @@ export async function handleLoginUser(
     }
 
     const validPassword = await user.comparePassword(password);
+    console.log(validPassword);
 
     if (!validPassword) {
       return res.status(401).json({ message: "Invalid password" });
@@ -119,10 +120,11 @@ export async function handleVerifyPasswordReset(
     }
 
     // encrypt password
-    const salt = await bcrypt.genSalt(10);
-    const hash = await bcrypt.hash(password, salt);
+    // const salt = await bcrypt.genSalt(10);
+    // console.log(password);
+    // const hash = await bcrypt.hash(password, salt);
 
-    user.password = hash;
+    user.password = password;
     user.passwordResetToken = undefined;
     user.passwordResetExpires = undefined;
 
