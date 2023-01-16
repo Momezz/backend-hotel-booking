@@ -3,6 +3,8 @@ import { NextFunction, Request, Response } from "express";
 import { sendMailSendGrid } from "../../utils/emails";
 import { signToken } from "../auth.services";
 import crypto from "crypto";
+import bcrypt from "bcryptjs";
+
 
 export async function handleLoginUser(
   req: Request,
@@ -96,4 +98,37 @@ export async function handleResetPassword(
   } catch (error) {
     return res.status(500).json(error);
   }
+}
+
+export async function handleVerifyPasswordReset(
+  req: Request,
+  res: Response,
+  next: NextFunction
+) {
+  const { token } = req.params;
+  const {password} = req.body;
+  try {
+    const user = await getUserFilter({ passwordResetToken: token });
+
+    if (!user) {
+      return res.status(404).json({ message: "Invalid token" });
+    }
+
+    if (Date.now() > Number(user.passwordResetExpires)) {
+      return res.status(400).json({ message: "Token expired" });
+    }
+
+    // encrypt password
+    const salt = await bcrypt.genSalt(10);
+    const hash = await bcrypt.hash(password, salt);
+
+    user.password = hash;
+    user.passwordResetToken = undefined;
+    user.passwordResetExpires = undefined;
+
+    await user.save();
+  } catch (error: any) {
+    return res.status(500).json(error.message);
+  }
+  return res.status(200).json({ message: "Password updated" });
 }

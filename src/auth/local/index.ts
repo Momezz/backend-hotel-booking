@@ -3,7 +3,8 @@ import { Router } from 'express';
 import {
     handleLoginUser,
     handleVerifyUserEmail,
-    handleResetPassword
+    handleResetPassword,
+    handleVerifyPasswordReset,
   } from "./local.controller";
 
 const router = Router();
@@ -17,7 +18,9 @@ router.post("/login", handleLoginUser);
 
 //Reset password
 // auth/local/password-reset
-router.get("/password-reset", handleResetPassword)
+router.post("/password-reset", handleResetPassword)
+// auth/local/password-reset/validate
+router.post("/password-reset/:token", handleVerifyPasswordReset)
 
 //Verify email
 // auth/local/activate/*hexToken*
