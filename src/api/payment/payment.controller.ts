@@ -1,4 +1,4 @@
-import * as dotenv from 'dotenv';
+import dotenv from 'dotenv';
 import Stripe from 'stripe';
 import { Response, Request } from 'express';
 
