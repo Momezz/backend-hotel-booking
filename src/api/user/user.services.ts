@@ -6,7 +6,7 @@ export function getUsers() {
 }
 
 export function getUserById(id: string) {
-  return User.findById(id);
+  return User.findById(id).populate("booking");
 }
 
 export function createUser(user: DocumentDefinition<Omit<UserDocument, 'createdAt' | 'updatedAt'>>) {
@@ -22,5 +22,6 @@ export function deleteUser(id: string) {
 }
 
 export function getUserFilter(filter: FilterQuery<UserDocument>) {
-  return User.findOne(filter);
+  const user = User.findOne(filter);
+  return user;
 }

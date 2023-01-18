@@ -4,7 +4,10 @@ export interface BookingDocument extends Document {
   checkInDate: Date,
   checkOutDate: Date,
   guestsNumber: Number,
-  paymentDetail: Object,
+  city?: String,
+  pricePerNight?: Number,
+  offerPrice?: Number,
+  paymentDetail?: Object,
 }
 
 const paymentDetail = new Schema({
@@ -37,9 +40,17 @@ const BookingSchema = new Schema({
     type: Number,
     required: true,
   },
+  city: {
+    type: String,
+  },
+  offerPrice: {
+    type: String,
+  },
+  pricePerNight: {
+    type: String,
+  },
   paymentDetail: {
     type: paymentDetail,
-    required: true,
   },
 },{
   timestamps: true,
